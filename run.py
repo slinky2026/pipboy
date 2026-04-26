@@ -8,7 +8,7 @@ from pypboy.core import Pypboy
 
 
 def main() -> None:
-    Pypboy("Pip-Boy Prototype (Tabs)", 720, 720).run()
+    Pypboy("Pip-Boy Prototype (Tabs)", 480, 320).run()
 
 
 if __name__ == "__main__":
