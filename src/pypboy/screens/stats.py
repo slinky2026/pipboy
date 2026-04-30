@@ -145,29 +145,29 @@ class StatsScreen(Screen):
           #  line_y += 22
 
 
-        def draw(self, surface: pygame.Surface) -> None:
-            self.update_weather_if_needed()
+    def draw(self, surface: pygame.Surface) -> None:
+        self.update_weather_if_needed()
 
-            fg = (0, 255, 0)
-            width, height = surface.get_size()
+        fg = (0, 255, 0)
+        width, height = surface.get_size()
 
-            font = pygame.font.SysFont(None, 24)
-            title_font = pygame.font.SysFont(None, 28)
+        font = pygame.font.SysFont(None, 24)
+        title_font = pygame.font.SysFont(None, 28)
 
-            surface.blit(title_font.render("STATUS", True, fg), (30, 85))
+        surface.blit(title_font.render("STATUS", True, fg), (30, 85))
 
-            v = self.state.vitals
-            draw_meter(surface, 30, 140, 230, 12, v.hp, v.hp_max, "HP")
-            draw_meter(surface, 30, 190, 230, 12, v.rad, 100, "RAD")
+        v = self.state.vitals
+        draw_meter(surface, 30, 140, 230, 12, v.hp, v.hp_max, "HP")
+        draw_meter(surface, 30, 190, 230, 12, v.rad, 100, "RAD")
 
             # simple weather box
-            pygame.draw.rect(surface, fg, (300, 90, 150, 90), 1)
-            surface.blit(font.render("WEATHER", True, fg), (310, 100))
-            surface.blit(font.render("YORK", True, fg), (310, 125))
+        pygame.draw.rect(surface, fg, (300, 90, 150, 90), 1)
+        surface.blit(font.render("WEATHER", True, fg), (310, 100))
+        surface.blit(font.render("YORK", True, fg), (310, 125))
 
-            if self.temperature is not None:
-                text = f"{self.temperature} C"
-            else:
-                text = self.weather_error
+        if self.temperature is not None:
+            text = f"{self.temperature} C"
+        else:
+            text = self.weather_error
 
-            surface.blit(font.render(text, True, fg), (310, 150))
+        surface.blit(font.render(text, True, fg), (310, 150))
