@@ -178,7 +178,6 @@ class Pypboy:
             screen.fill(self.bg)
 
             # Draw active screen into the content area (below nav)
-            # We’ll “clip” so screens can’t draw over the nav bar.
             content_rect = pygame.Rect(0, self.nav_h + 10, self.width, self.height - (self.nav_h + 10))
             prev_clip = screen.get_clip()
             screen.set_clip(content_rect)
@@ -193,8 +192,8 @@ class Pypboy:
             self.draw_scanlines(screen)
             self.apply_flicker(screen, dt)
             #like a key or legend 
-            hint = "1 Stats  2 Inv  3 Data  4 Map  5 Radio   |   ESC Quit"
-            hint_surf = hint_font.render(hint, True, self.fg_dim)
+            #hint = "1 Stats  2 Inv  3 Data  4 Map  5 Radio   |   ESC Quit"
+            #hint_surf = hint_font.render(hint, True, self.fg_dim)
             y = max(0, self.height - hint_surf.get_height() - 10)
             screen.blit(hint_surf, (24, y))
 
