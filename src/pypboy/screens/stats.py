@@ -36,7 +36,7 @@ class StatsScreen(Screen):
     def __init__(self, state: AppState):
         self.state = state
         #self.weather = None
-        self. temperature = None
+        self.temperature = None
         self.weather_error = "NO DATA"
         self.last_weather_update = 0
         self.weather_refresh_seconds = 30
