@@ -71,7 +71,8 @@ class StatsScreen(Screen):
             }
             self.weather_error = None
 
-        except Exception:
+        except Exception as e:
+            print("Weather fetch failed:", repr(e))
             self.weather = None
             self.weather_error = "SIGNAL LOST"
 
