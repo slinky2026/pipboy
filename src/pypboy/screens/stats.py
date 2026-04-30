@@ -144,9 +144,28 @@ class StatsScreen(Screen):
          #   surface.blit(small_font.render(line, True, fg), (x + 8, line_y))
           #  line_y += 22
 
+    def draw_bioscan_panel(self, surface: pygame.Surface, x: int, y: int, w: int, h: int, fg) -> None:
+        pygame.draw.rect(surface, fg, (x, y, w, h), 1)
 
+        title_font = pygame.font.SysFont(None, 18)
+        small_font = pygame.font.SysFont(None, 16)
+        value_font = pygame.font.SysFont(None, 20)
+
+        surface.blit(title_font.render("BIOSCAN", True, fg), (x + 8, y + 6))
+
+        heart_rate = "--"
+        spo2 = "--"
+
+        surface.blit(small_font.render("HEART RATE", True, fg), (x + 8, y + 30))
+        surface.blit(value_font.render(f"{heart_rate} BPM", True, fg), (x + 8, y + 48))
+
+        surface.blit(small_font.render("O2 LEVEL", True, fg), (x + 8, y + 72))
+        surface.blit(value_font.render(f"{spo2} %", True, fg), (x + 8, y + 90))
+    
+    
     def draw(self, surface: pygame.Surface) -> None:
         self.update_weather_if_needed()
+        #self.draw_weather_panel(surface, panel_x, panel_y, panel_w, panel_h, fg)
 
         fg = (0, 255, 0)
         width, height = surface.get_size()
@@ -171,3 +190,5 @@ class StatsScreen(Screen):
             text = self.weather_error
 
         surface.blit(font.render(text, True, fg), (310, 150))
+        
+        self.draw_bioscan_panel(surface, 300, 190, 150, 115, fg)
