@@ -194,8 +194,8 @@ class Pypboy:
             #like a key or legend 
             #hint = "1 Stats  2 Inv  3 Data  4 Map  5 Radio   |   ESC Quit"
             #hint_surf = hint_font.render(hint, True, self.fg_dim)
-            y = max(0, self.height - hint_surf.get_height() - 10)
-            screen.blit(hint_surf, (24, y))
+           # y = max(0, self.height - hint_surf.get_height() - 10)
+            #screen.blit(hint_surf, (24, y))
 
             pygame.display.flip()
 
