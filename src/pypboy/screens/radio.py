@@ -11,7 +11,8 @@ class RadioScreen(Screen):
     def __init__(self, state: AppState):
         self.state = state
 
-        self.audio_path = "assets/audio"
+        BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../.."))
+        self.audio_path = os.path.join(BASE_DIR, "assets", "audio")
         self.tracks = [
             f for f in os.listdir(self.audio_path)
             if f.endswith(".ogg") or f.endswith(".wav")
