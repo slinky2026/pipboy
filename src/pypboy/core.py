@@ -149,6 +149,7 @@ class Pypboy:
                         tab_width = self.width // len(self.tabs)
                         tab_index = x // tab_width
                         self.set_tab(tab_index)
+                self.screens[self.active_tab].handle_event(event)
                 self.input.process_pygame_event(event)
 
             while True:
