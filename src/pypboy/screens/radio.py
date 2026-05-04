@@ -11,12 +11,20 @@ class RadioScreen(Screen):
     def __init__(self, state: AppState):
         self.state = state
 
-        BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../.."))
-        self.audio_path = os.path.join(BASE_DIR, "assets", "audio")
-        self.tracks = [
-            f for f in os.listdir(self.audio_path)
-            if f.endswith(".ogg") or f.endswith(".wav")
-        ]
+        PROJECT_ROOT = os.path.abspath(
+            os.path.join(os.path.dirname(__file__), "../../..")
+        )
+
+        self.audio_path = os.path.join(PROJECT_ROOT, "assets", "audio")
+        
+        if os.path.exists(self.audio_path):
+            self.tracks = [
+                f for f in os.listdir(self.audio_path)
+                if f.lower().endswith((".ogg", ".wav"))
+            ]
+        else:
+            print("Audio folder not found:", self.audio_path)
+            self.tracks = []
 
         self.playing = False
         self.current_track = None
