@@ -139,6 +139,16 @@ class Pypboy:
             dt = clock.tick(self.fps) / 1000.0
 
             for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    print("TOUCH:", event.pos)
+
+                    x, y = event.pos
+
+                    #top nav touch area i think here
+                    if y <= self.nav_h:
+                        tab_width = self.width // len(self.tabs)
+                        tab_index = x // tab_width
+                        self.set_tab(tab_index)
                 self.input.process_pygame_event(event)
 
             while True:
