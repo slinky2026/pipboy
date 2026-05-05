@@ -8,6 +8,7 @@ import requests
 from .base import Screen
 from pypboy.data import AppState
 from pypboy.input.actions import Action
+from pypboy.gps_reader import GPSReader
 
 
 class MapScreen(Screen):
@@ -25,9 +26,15 @@ class MapScreen(Screen):
     def __init__(self, state):
         self.state = state
 
-        # Start somewhere sensible for dev n real thing wabt actual location
+        self.gps = GPSReader(port="/dev/ttyACM0")
+
+        # Start somewhere sensible (fallback if no GPS fix)
         self.lat = 53.9590
         self.lon = -1.0815
+
+        # GPS update timing
+        self.last_gps_check = 0
+        self.gps_refresh_seconds = 30
 
         # Map zoom level 
         # Keep modest for performance. this laptop is a shitbox
@@ -43,11 +50,29 @@ class MapScreen(Screen):
         # key: (z,x,y) -> pygame.Surface
         self.surface_cache = {}
 
-        # Fallback tile surface if fetch fails
+         # Fallback tile surface if fetch fails
         self.fallback_tile = pygame.Surface((self.tile_size, self.tile_size))
         self.fallback_tile.fill((5, 20, 5))
-        pygame.draw.rect(self.fallback_tile, (0, 255, 0), (0, 0, self.tile_size, self.tile_size), 1)
+        pygame.draw.rect(
+            self.fallback_tile,
+            (0, 255, 0),
+            (0, 0, self.tile_size, self.tile_size),
+            1
+        )
 
+    def update(self, dt):
+        import time
+
+        now = time.time()
+
+        if now - self.last_gps_check > self.gps_refresh_seconds:
+            lat, lon = self.gps.update()
+
+            if lat is not None and lon is not None:
+                self.lat = lat
+                self.lon = lon
+
+            self.last_gps_check = now
   #INPUTS
     def on_action(self, action):
         # Pan step changes with zoom (higher zoom => smaller degrees per step)
