@@ -55,11 +55,24 @@ class InventoryScreen(Screen):
         fg = (0, 255, 0)
         dim = (0, 140, 0)
 
-        title = pygame.font.SysFont(None, 44)
-        small = pygame.font.SysFont(None, 24)
+        title_font = pygame.font.SysFont(None, 30)
+        label_font = pygame.font.SysFont(None, 20)
+        small_font = pygame.font.SysFont(None, 18)
+
+        title_y = 88
+        cat_y = 125
+        panel_y = 155
+        panel_h = 115
+
+        left_x = 30
+        left_w = 245
+
+        right_x = 295
+        right_w = 150
 
         # Header
-        surface.blit(title.render("INVENTORY", True, fg), (40, 110))
+        surface.blit(title_font.render("INVENTORY", True, fg), (left_x, title_y))
+        surface.blit(label_font.render("[WEAPONS] APPAREL AID MISC", True, fg), (left_x, cat_y))
 
         # Category strip (Fallout-ish)
         cat_text = "  ".join(
