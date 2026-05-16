@@ -28,10 +28,15 @@ class RadioScreen(Screen):
 
         self.playing = False
         self.current_track = None
-
-        pygame.mixer.init()
+        try:
+            pygame.mixer.init()
+            self.audio_ready = True
+        except pygame.error as e:
+            print("audio unavailable:", e)
+            self.audio_ready = False
 
     def play_random(self):
+        
         if not self.tracks:
             print("No audio files found")
             return
@@ -40,13 +45,15 @@ class RadioScreen(Screen):
         full_path = os.path.join(self.audio_path, self.current_track)
 
         print("Playing:", full_path)
-
+        if not self.audio_ready:
+            return
         pygame.mixer.music.load(full_path)
         pygame.mixer.music.play()
 
         self.playing = True
 
     def stop(self):
+        if not self.audio_ready:
         pygame.mixer.music.stop()
         self.playing = False
 
