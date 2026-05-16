@@ -54,7 +54,7 @@ class RadioScreen(Screen):
 
     def stop(self):
         if not self.audio_ready:
-        pygame.mixer.music.stop()
+            pygame.mixer.music.stop()
         self.playing = False
 
     def handle_event(self, event: pygame.event.Event) -> None:
