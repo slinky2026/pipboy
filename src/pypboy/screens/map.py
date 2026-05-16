@@ -178,21 +178,21 @@ class MapScreen(Screen):
         small_font = pygame.font.SysFont(None, 24)
         mono_font = pygame.font.SysFont("consolas", 22)
 
-        title_text = title_font.render("MAP", True, (0, 255, 0))
-        help_text = small_font.render(
-            "Arrows: pan   Enter: zoom in   Backspace: zoom out",
-            True,
-            (0, 140, 0)
-        )
-        coords_text = mono_font.render(
-            f"Lat {self.lat:.5f}   Lon {self.lon:.5f}   Z {self.zoom}",
-            True,
-            (0, 140, 0)
-        )
+       # title_text = title_font.render("MAP", True, (0, 255, 0))
+        #help_text = small_font.render(
+         #   "Arrows: pan   Enter: zoom in   Backspace: zoom out",
+           # True,
+            #(0, 140, 0)
+        #)
+        #coords_text = mono_font.render(
+         #   f"Lat {self.lat:.5f}   Lon {self.lon:.5f}   Z {self.zoom}",
+          #  True,
+           # (0, 140, 0)
+       # )
 
-        surface.blit(title_text, (40, 110))
-        surface.blit(help_text, (40, 155))
-        surface.blit(coords_text, (40, 185))
+    #    surface.blit(title_text, (40, 110))
+     #   surface.blit(help_text, (40, 155))
+      #  surface.blit(coords_text, (40, 185))
 
   #TYLE FETCH
     def _get_tile_surface(self, z, x, y):

@@ -69,7 +69,7 @@ class Pypboy:
         surface.blit(overlay, (0, 0))
 
     def draw_nav(self, surface: pygame.Surface) -> None:
-        font = self.fonts.tab
+        font = pygame.font.SysFont(None, 30)
         fg = self.colors.fg
         dim = self.colors.dim
 
