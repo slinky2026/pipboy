@@ -4,6 +4,7 @@ import requests
 from .base import Screen
 from pypboy.ui.widgets import draw_meter
 from pypboy.data import AppState
+from pypboy.sensor_reader import SensorReader
 
 #stuff for weather location data pulling 
 YORK_LAT = 53.9590
@@ -40,6 +41,9 @@ class StatsScreen(Screen):
         self.weather_error = "NO DATA"
         self.last_weather_update = 0
         self.weather_refresh_seconds = 30
+        self.sensor = SensorReader(port="/dev/ttyUSB0")
+        self.heart_rate = None
+        self.ir_value = None
 
     def fetch_temperature(self):
         url = (
@@ -67,6 +71,15 @@ class StatsScreen(Screen):
             print("Weather failed:", repr(e))
             self.temperature = None
             self.weather_error = "NO DATA"  
+
+    def update_sensor_if_needed(self):
+        hr, ir = self.sensor.update()
+
+        if hr is not None:
+            self.heart_rate = hr
+
+        if ir is not None:
+            self.ir_value = ir
 
     def update_weather_if_needed(self):
         now = time.time()
@@ -150,7 +163,7 @@ class StatsScreen(Screen):
         title_font = pygame.font.SysFont(None, 18)
         small_font = pygame.font.SysFont(None, 16)
         value_font = pygame.font.SysFont(None, 20)
-
+        
         surface.blit(title_font.render("BIOSCAN", True, fg), (x + 8, y + 6))
 
         heart_rate = "--"
@@ -164,6 +177,7 @@ class StatsScreen(Screen):
     
     
     def draw(self, surface: pygame.Surface) -> None:
+        self.update_sensor_if_needed() #you know the drill blah blah
         self.update_weather_if_needed()
         #self.draw_weather_panel(surface, panel_x, panel_y, panel_w, panel_h, fg)
 
@@ -192,3 +206,4 @@ class StatsScreen(Screen):
         surface.blit(font.render(text, True, fg), (310, 150))
         
         self.draw_bioscan_panel(surface, 300, 190, 150, 115, fg)
+        
